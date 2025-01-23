@@ -1,13 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/styles.css">
-    <title>Vite App</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Homework 11</title>
   </head>
   <body>
-    <div id="app">HELLO</div>
+    <form class="form">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        name="search-input"
+        placeholder="Search images..."
+      />
+      <button type="submit" class="seach-button">Search</button>
+    </form>
+    <div class="gallery"></div>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>

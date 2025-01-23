@@ -1,5 +1,26 @@
  body {
-background-color: #242424;
+background-color: #ecf6ddbd;
  }
-  
- 
+ .form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: auto;
+    position: relative;
+    justify-content: center;
+ }
+ .search-input {
+    width: 272px;
+    height: 40px;
+    border-color: #808080;
+    border-radius: 4px;
+    color: #808080;
+ }
+.seach-button {
+    color: #ffffff;
+    background-color: #4E75FF;
+    border-radius: 8px;
+    height: 40px;
+    width: 92px;
+
+}
