@@ -8,33 +8,37 @@ const lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
 });
-const searchButton = document.querySelector(".seach-button");
+
+const searchButton = document.querySelector(".search-button");
 
 searchButton.addEventListener("click", (event) => {
   event.preventDefault();
   const searchText = document.querySelector("#searchInput").value;
-  const apiKey = "48318006-868fd1918e5aa19d98c3706e2";
-  const searchParams = new URLSearchParams({
-    q: searchText,
-    image_type: "photo",
-    orientation: "horizontal",
-    safesearch: "true",
-  });
+  const loader = document.querySelector(".loader");
+  
+    const apiKey = "48318006-868fd1918e5aa19d98c3706e2";
+    const searchParams = new URLSearchParams({
+      q: searchText,
+      image_type: "photo",
+      orientation: "horizontal",
+      safesearch: "true",
+    });
   searchParams.q = searchText;
-  fetch(`https://pixabay.com/api/?key=${apiKey}&${searchParams.toString()}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data.hits);
-      const list = document.querySelector(".gallery");
-      list.innerHTML = "";
-      const markup = data.hits
-        .map((image) => {
-          return `
+  loader.style.display = "flex";
+    fetch(`https://pixabay.com/api/?key=${apiKey}&${searchParams.toString()}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        loader.style.display = "none";
+        const list = document.querySelector(".gallery");
+        list.innerHTML = "";
+        const markup = data.hits
+          .map((image) => {
+            return `
           <a href="${image.largeImageURL}" class="image-card">
               <img src="${image.webformatURL}" alt="${image.tags}" />
               <div class="image-info">
@@ -57,19 +61,24 @@ searchButton.addEventListener("click", (event) => {
               </div>
             </a>
           `;
-        })
-        .join("");
-      list.innerHTML = markup;
-      lightbox.refresh();
-      if (markup == []) {
-        return iziToast.error({
-          message:
-            "Sorry, there are no images matching your search query. Please try again!",
+          })
+          .join("");
+        list.innerHTML = markup;
+        lightbox.refresh();
+        if (data.hits.length === 0) {
+          return iziToast.error({
+            message:
+              "Sorry, there are no images matching your search query. Please try again!",
+            position: "topRight",
+          });
+        }
+      })
+      .catch((error) => {
+        loader.style.display = "none";
+        iziToast.error({
+          message: "Something went wrong! Please try again.",
           position: "topRight",
         });
-      }
-    })
-    .catch((error) => {
-      console.error("API request error:", error);
-    });
+        console.error("API request error:", error);
+      });
 });

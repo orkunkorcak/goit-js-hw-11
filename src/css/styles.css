@@ -16,7 +16,7 @@ background-color: #ecf6ddbd;
     border-radius: 4px;
     color: #808080;
  }
-.seach-button {
+.search-button {
     color: #ffffff;
     background-color: #4E75FF;
     border-radius: 8px;
@@ -24,9 +24,33 @@ background-color: #ecf6ddbd;
     width: 92px;
 
 }
-.seach-button:hover {
+.search-button:hover {
    background-color: #6C8CFF;
 }
+.loader {
+  font-size: 48px;
+  font-weight: 600;
+  display: none;
+  letter-spacing: 2px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #b75656;
+  box-sizing: border-box;
+  animation: spotlight 2s linear infinite alternate;
+  margin:30px, auto;
+  justify-content: center;
+}
+
+@keyframes spotlight {
+  0% , 20% {
+    opacity: 1;
+    letter-spacing: 2px;
+   }
+ 80% , 100% {
+    opacity: 0;
+    letter-spacing: 32px;
+   }
+}
+      
 .gallery {
   display: flex;
   flex-wrap: wrap;
